@@ -1,0 +1,6 @@
+GET http://localhost:1337/api/person/get
+
+GET http://localhost:1337/api/person/ping
+###
+GET http://localhost:1337/api/person/getUsingQuery 
+

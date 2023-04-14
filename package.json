@@ -1,0 +1,23 @@
+{
+    "name": "adventureworks-jwt-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "source/server.ts",
+    "scripts": {
+        "build": "powershell If (Test-Path ./build){Remove-Item -Verbose -Recurse ./build} && prettier --write source/ && tsc"
+    },
+    "author": "Jim Langdon",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mssql": "^8.1.2"
+    },
+    "devDependencies": {
+        "@types/body-parser": "^1.19.2",
+        "@types/dotenv": "^8.2.0",
+        "@types/express": "^4.17.17",
+        "@types/mssql": "^8.1.2"
+    }
+}
