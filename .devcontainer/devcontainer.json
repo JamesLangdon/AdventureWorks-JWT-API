@@ -8,16 +8,16 @@
         "vscode": {
             "extensions": ["esbenp.prettier-vscode"]
         }
-    }
+    },
 
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    // "forwardPorts": [],
+    "forwardPorts": [1337],
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    // "postCreateCommand": "yarn install",
+    "postCreateCommand": "npm install && npm install -g npm@9.6.4"
 
     // Configure tool-specific properties.
     // "customizations": {},
