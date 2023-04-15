@@ -4,7 +4,7 @@
     "description": "",
     "main": "source/server.ts",
     "scripts": {
-        "build": "powershell If (Test-Path ./build){Remove-Item -Verbose -Recurse ./build} && prettier --write source/ && tsc"
+        "build": "rm -f /build && prettier --write source/ && tsc"
     },
     "author": "Jim Langdon",
     "license": "ISC",
@@ -12,12 +12,16 @@
         "body-parser": "^1.20.2",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
         "mssql": "^8.1.2"
     },
     "devDependencies": {
         "@types/body-parser": "^1.19.2",
         "@types/dotenv": "^8.2.0",
         "@types/express": "^4.17.17",
-        "@types/mssql": "^8.1.2"
+        "@types/jsonwebtoken": "^9.0.1",
+        "@types/mssql": "^8.1.2",
+        "nodemon": "^2.0.22",
+        "prettier": "^2.8.7"
     }
 }
