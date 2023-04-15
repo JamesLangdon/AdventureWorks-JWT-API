@@ -6,7 +6,11 @@
     "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
     "customizations": {
         "vscode": {
-            "extensions": ["esbenp.prettier-vscode", "ms-vscode-remote.remote-ssh"]
+            "extensions": [
+				"esbenp.prettier-vscode",
+				"ms-vscode-remote.remote-ssh",
+				"humao.rest-client"
+			]
         }
     },
 
