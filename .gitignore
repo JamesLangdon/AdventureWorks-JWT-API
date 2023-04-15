@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 build
 node_modules
 .env
+=======
+build
+node_modules
+.env
+>>>>>>> d45e621b6c9223bc573cc59fed6ad949bb45d7d0
 .vscode
