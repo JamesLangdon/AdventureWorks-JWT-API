@@ -4,6 +4,8 @@ import controller from '../controllers/person';
 const router = express.Router();
 
 router.get('/ping', controller.serverHealthCheck);
+
+// Protected routes.
 router.get('/persons', controller.getAllPersons);
 router.get('/persons/:id', controller.getPersonById);
 router.post('/persons', controller.createPerson);
