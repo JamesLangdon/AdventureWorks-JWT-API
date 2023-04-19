@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import config from '../config/config';
-import sql, { ConnectionPool, Request as SqlRequest } from 'mssql';
+import { ConnectionPool } from 'mssql';
 import jwt from 'jsonwebtoken';
 
 const pool = new ConnectionPool(config.data);

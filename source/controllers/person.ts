@@ -9,10 +9,10 @@ const METHOD = 'person controller';
 const pool = new ConnectionPool(config.data);
 pool.connect((err) => {
     if (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error connecting to MSSQL database: ${err}`);
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error connecting to MSSQL database: ${err}`);
         //console.log(`Error connecting to MSSQL database: ${err}`);
     } else {
-        logging.info(NAMESPACE, `METHOD: [METHOD]: Connected to MSSQL database`);
+        logging.info(NAMESPACE, `METHOD: ${METHOD}: Connected to MSSQL database`);
         //console.log('Connected to MSSQL database');
     }
 });
@@ -29,7 +29,7 @@ const getAllPersons = async (req: Request, res: Response) => {
         const result = await request.query('SELECT top 10 * FROM Person.Person');
         res.send(result.recordset);
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error getting persons: ${err}`);
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error getting persons: ${err}`);
         //console.log(`Error getting persons: ${err}`);
         res.status(500).send('Internal server error');
     }
@@ -58,7 +58,7 @@ const createPerson = async (req: Request, res: Response) => {
         const result = await request.input('name', sql.NVarChar, name).input('email', sql.NVarChar, email).query('INSERT INTO persons (name, email) VALUES (@name, @email)');
         res.status(201).send(result.recordset[0]);
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error creating person: ${err}`);
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error creating person: ${err}`);
         //console.log(`Error creating person: ${err}`);
         res.status(500).send('Internal server error');
     }
@@ -79,7 +79,7 @@ const updatePersonById = async (req: Request, res: Response) => {
             res.sendStatus(204);
         }
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error updating person: ${err}`);
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error updating person: ${err}`);
         //console.log(`Error updating person: ${err}`);
         res.status(500).send('Internal server error');
     }
@@ -95,7 +95,7 @@ const deletePersonById = async (req: Request, res: Response) => {
             res.sendStatus(204);
         }
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error deleting person: ${err}`);
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error deleting person: ${err}`);
         //console.log(`Error deleting person: ${err}`);
         res.status(500).send('Internal server error');
     }

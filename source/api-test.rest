@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-GET http://localhost:1337/api/person/ping
-###
-GET http://localhost:1337/api/person/persons
-###
-GET http://localhost:1337/api/person/persons/1
-
-=======
 GET http://localhost:1337/api/auth/login
 ###
 GET http://localhost:1337/api/person/ping
 ###
-GET http://localhost:1337/api/persons
+GET http://localhost:1337/api/person/persons
 
 ###
-GET http://localhost:1337/api/persons/1
+GET http://localhost:1337/api/person/persons/1
 
 
->>>>>>> d45e621b6c9223bc573cc59fed6ad949bb45d7d0
