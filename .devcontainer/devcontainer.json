@@ -10,7 +10,8 @@
             "extensions": [
 				"esbenp.prettier-vscode",
 				"ms-vscode-remote.remote-ssh",
-				"humao.rest-client"
+				"humao.rest-client",
+				"ms-mssql.mssql"
 			]
         }
     },
@@ -19,7 +20,7 @@
     // "features": {},
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [1337],
+    "forwardPorts": [1337,"localhost:1433"],
 
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "npm install -g npm@9.6.4 && npm install -g nodemon && npm install -g ts-node && npm install"
