@@ -4,12 +4,11 @@
 {
     "name": "Node.js & TypeScript",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",    
     "customizations": {
         "vscode": {
             "extensions": [
 				"esbenp.prettier-vscode",
-				"ms-vscode-remote.remote-ssh",
 				"humao.rest-client"
 			]
         }
@@ -22,11 +21,11 @@
     "forwardPorts": [1337,"localhost:1433"],
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "npm install -g npm@9.6.4 && npm install -g nodemon && npm install -g ts-node && npm install"
+    "postCreateCommand": "npm install -g npm@9.6.4 && npm install -g nodemon && npm install -g ts-node && npm install",
 
     // Configure tool-specific properties.
     // "customizations": {},
 
     // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-    // "remoteUser": "root"
+    "remoteUser": "node"
 }

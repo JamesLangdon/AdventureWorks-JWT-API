@@ -10,9 +10,9 @@ const METHOD = 'person controller';
 const pool = new ConnectionPool(config.data);
 pool.connect((err) => {
     if (err) {
-        logging.error(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Error connecting to MSSQL database: ${err}`);        
+        logging.error(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Error connecting to MSSQL database: ${err}`);
     } else {
-        logging.info(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Connected to MSSQL database`);   
+        logging.info(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Connected to MSSQL database`);
     }
 });
 
@@ -20,7 +20,7 @@ const serverHealthCheck = (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({
         message: 'pong'
     });
-};  
+};
 
 const getAllPersons = async (req: Request, res: Response) => {
     try {
@@ -28,7 +28,7 @@ const getAllPersons = async (req: Request, res: Response) => {
         const result = await request.query('SELECT top 10 * FROM Person.Person');
         res.send(result.recordset);
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error getting persons: ${err}`);        
+        logging.error(NAMESPACE, `METHOD: ${METHOD}: Error getting persons: ${err}`);
         res.status(500).send('Internal server error');
     }
 };
@@ -100,7 +100,7 @@ const deletePersonById = async (req: Request, res: Response) => {
 };
 
 export default {
-    serverHealthCheck,    
+    serverHealthCheck,
     getAllPersons,
     getPersonById,
     createPerson,
