@@ -10,8 +10,7 @@
             "extensions": [
 				"esbenp.prettier-vscode",
 				"ms-vscode-remote.remote-ssh",
-				"humao.rest-client",
-				"ms-mssql.mssql"
+				"humao.rest-client"
 			]
         }
     },
