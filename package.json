@@ -4,7 +4,7 @@
     "description": "",
     "main": "source/server.ts",
     "scripts": {
-        "build": "rm -f /build && prettier --write source/ && tsc"
+        "build": "powershell Remove-Item -LiteralPath build -Force -Recurse"
     },
     "author": "Jim Langdon",
     "license": "ISC",

@@ -5,7 +5,16 @@ import logging from '../config/logging';
 
 const NAMESPACE = 'server';
 const METHOD = 'person controller';
+
+// Initialize the ConnectionPool.
 const pool = new ConnectionPool(config.data);
+pool.connect((err) => {
+    if (err) {
+        logging.error(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Error connecting to MSSQL database: ${err}`);        
+    } else {
+        logging.info(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Connected to MSSQL database`);   
+    }
+});
 
 const serverHealthCheck = (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({
