@@ -1,16 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import config from '../config/config';
-import { ConnectionPool } from 'mssql';
 import jwt from 'jsonwebtoken';
-
-const pool = new ConnectionPool(config.data);
-pool.connect((err) => {
-    if (err) {
-        console.log(`Error connecting to MSSQL database: ${err}`);
-    } else {
-        console.log('Connected to MSSQL database');
-    }
-});
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
     // Use bodyparser to get username and password.

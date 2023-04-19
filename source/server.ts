@@ -1,5 +1,6 @@
 import http from 'http';
 import express from 'express';
+import sql, { ConnectionPool } from 'mssql';
 import logging from './config/logging';
 import config from './config/config';
 import authRoutes from './routes/auth';
@@ -36,6 +37,16 @@ router.use((req, res, next) => {
     }
 
     next();
+});
+
+// Initialize the ConnectionPool.
+const pool = new ConnectionPool(config.data);
+pool.connect((err) => {
+    if (err) {
+        logging.error(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Error connecting to MSSQL database: ${err}`);        
+    } else {
+        logging.info(NAMESPACE, `METHOD: [ConnectionPool Initialization]: Connected to MSSQL database`);   
+    }
 });
 
 /** Routes go here */
