@@ -4,7 +4,7 @@
 {
     "name": "Node.js & TypeScript",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",    
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",         
     "customizations": {
         "vscode": {
             "extensions": [
@@ -18,8 +18,8 @@
     // "features": {},
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [1337,"localhost:1433"],
-
+    "forwardPorts": [1337],
+    
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "npm install -g npm@9.6.4 && npm install -g nodemon && npm install -g ts-node && npm install",
 
