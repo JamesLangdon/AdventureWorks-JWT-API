@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import config from '../config/config';
+import config from '../config/config.js';
 import sql, { ConnectionPool, Request as SqlRequest } from 'mssql';
-import logging from '../config/logging';
+import logging from '../config/logging.js';
 
 const NAMESPACE = 'server';
 const METHOD = 'person controller';
