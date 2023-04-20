@@ -36,7 +36,7 @@ const getAllPersons = async (req: Request, res: Response) => {
 const getPersonById = async (req: Request, res: Response) => {
     try {
         const request = new SqlRequest(pool);
-        const result = await request.input('id', sql.Int, req.params.id).query('SELECT * FROM Person.Person WHERE BusinessEntityId1 = @id');
+        const result = await request.input('id', sql.Int, req.params.id).query('SELECT * FROM Person.Person WHERE BusinessEntityId = @id');
         if (result.recordset.length === 0) {
             res.status(404).send('Person not found');
         } else {
