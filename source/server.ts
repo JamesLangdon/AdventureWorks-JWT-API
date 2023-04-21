@@ -1,9 +1,9 @@
 import http from 'http';
 import express from 'express';
-import logging from './config/logging.js';
-import config from './config/config.js';
-import authRoutes from './routes/auth.js';
-import personRoutes from './routes/person.js';
+import logging from './config/logging';
+import config from './config/config';
+import authRoutes from './routes/auth';
+import personRoutes from './routes/person';
 
 const NAMESPACE = 'Server';
 const router = express();

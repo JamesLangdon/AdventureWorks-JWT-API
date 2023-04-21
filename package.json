@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "source/server.ts",
-    "type": "module",
     "scripts": {
         "build": "rm -f /build && prettier --write source/ && tsc",
-        "build-powershell": "powershell If (Test-Path ./build){Remove-Item -Verbose -Recurse ./build} && prettier --write source/ && tsc"
+        "build-powershell": "powershell If (Test-Path ./build){Remove-Item -Verbose -Recurse ./build} && prettier --write source/ && tsc",
+        "start": "ts-node source/server.ts"
     },
     "author": "Jim Langdon",
     "license": "ISC",

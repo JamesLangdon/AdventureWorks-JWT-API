@@ -1,9 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
     // Use bodyparser to get username and password.
     // Find the user in the database and confirm the user is valid.
+
+    const userName = req.body.username;
+    const password = req.body.password;
 
     const user = { id: 1 };
     const token = jwt.sign(user, 'my-secret-key');
@@ -14,4 +20,19 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-export default { authenticate };
+function authenticateToken(req: Request, res: Response, next: NextFunction) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+
+    const secret = process.env.ACCESS_TOKEN_SECRET as string;
+
+    jwt.verify(token, secret, (err, user) => {
+        console.log(err);
+        if (err) return res.sendStatus(403);
+        req.body.username = user;
+        next();
+    });
+}
+
+export default { authenticate, authenticateToken };
