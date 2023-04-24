@@ -1,4 +1,3 @@
-//import express from 'express';
 import express from 'express';
 import controller from '../controllers/person';
 import auth from '../controllers/auth';
