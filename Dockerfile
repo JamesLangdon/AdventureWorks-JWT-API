@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 # Copy Package.json files
 COPY package*.json ./
 
-# Install Prettier (For our package's build function)
-RUN npm install Prettier -g
+RUN npm install typescript -g
+RUN npm install prettier -g
 
 # Install files
 RUN npm install
@@ -21,7 +21,7 @@ RUN npm run build
 # Expose the API port
 EXPOSE 1337
 
-CMD [ "build", "build/server.js" ]
+CMD [ "node", "build/server.js" ]
 
 
 
