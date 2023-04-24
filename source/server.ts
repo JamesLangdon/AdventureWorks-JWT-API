@@ -39,8 +39,8 @@ router.use((req, res, next) => {
 });
 
 /** Routes go here */
-router.use('/api/auth', authRoutes);
-router.use('/api/person', personRoutes);
+router.use('/api', authRoutes);
+router.use('/api', personRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {

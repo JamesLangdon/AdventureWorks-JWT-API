@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import config from '../config/config';
-import sql, { ConnectionPool, Request as SqlRequest } from 'mssql';
+import sql, { ConnectionPool, IProcedureResult, Request as SqlRequest } from 'mssql';
 import logging from '../config/logging';
 
 const NAMESPACE = 'server';
@@ -51,26 +51,50 @@ const getPersonById = async (req: Request, res: Response) => {
 
 const createPerson = async (req: Request, res: Response) => {
     try {
-        const { name, email } = req.body;
+        const { PersonType, FirstName, MiddleName, LastName } = req.body;
+        let personType = req.body.PersonType;
+        let firstName = req.body.FirstName;
+        let middleName = req.body.MiddleName;
+        let lastName = req.body.LastName;
         const request = new SqlRequest(pool);
-        const result = await request.input('name', sql.NVarChar, name).input('email', sql.NVarChar, email).query('INSERT INTO persons (name, email) VALUES (@name, @email)');
-        res.status(201).send(result.recordset[0]);
+        // IProcedureResult.
+        const result = await request
+            .input('PersonType', sql.NVarChar, personType)
+            .input('FirstName', sql.NVarChar, firstName)
+            .input('MiddleName', sql.NVarChar, middleName)
+            .input('LastName', sql.NVarChar, lastName)
+            .execute('CreatePerson', (err, recordset, returnValue) => {
+                if ((err = null == undefined)) {
+                    res.status(201).send(recordset);
+                } else {
+                    logging.error(NAMESPACE, `METHOD: ${METHOD}: Error creating person: ${err}`);
+                    res.status(500).send('Create Person Failed');
+                }
+            });
     } catch (err) {
         logging.error(NAMESPACE, `METHOD: ${METHOD}: Error creating person: ${err}`);
-        //console.log(`Error creating person: ${err}`);
-        res.status(500).send('Internal server error');
+        res.status(500).send('Create Person Failed');
     }
 };
 
 const updatePersonById = async (req: Request, res: Response) => {
     try {
-        const { name, email } = req.body;
         const request = new SqlRequest(pool);
+        const personType = req.body.PersonType;
+        const firstName = req.body.FirstName;
+        const middleName = req.body.MiddleName;
+        const lastName = req.body.LastName;
         const result = await request
-            .input('id', sql.Int, req.params.id)
-            .input('name', sql.NVarChar, name)
-            .input('email', sql.NVarChar, email)
-            .query('UPDATE persons SET name = @name, email = @email WHERE id = @id');
+            .input('PersonType', sql.NVarChar, personType)
+            .input('FirstName', sql.NVarChar, firstName)
+            .input('MiddleName', sql.NVarChar, middleName)
+            .input('LastName', sql.NVarChar, lastName).query(`UPDATE Person.Person 
+                SET 
+                    PersonType = @personType, 
+                    FirstName = @firstName,
+                    MiddleName = @middleName,
+                    LastName = @lastName
+                WHERE BusinessEntityId = req.params.id`);
         if (result.rowsAffected[0] === 0) {
             res.status(404).send('person not found');
         } else {
@@ -86,7 +110,8 @@ const updatePersonById = async (req: Request, res: Response) => {
 const deletePersonById = async (req: Request, res: Response) => {
     try {
         const request = new SqlRequest(pool);
-        const result = await request.input('id', sql.Int, req.params.id).query('DELETE FROM persons WHERE id = @id');
+        const businessEntityId = req.params.BusinessEntityId;
+        const result = await request.input('BusinessEntityId', sql.Int, req.params.id).query('DELETE FROM Person.Person WHERE BusinessEntityId = @businessEntityId');
         if (result.rowsAffected[0] === 0) {
             res.status(404).send('person not found');
         } else {

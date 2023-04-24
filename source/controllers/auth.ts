@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import config from '../config/config';
+import sql, { ConnectionPool, Request as SqlRequest } from 'mssql';
+import logging from '../config/logging';
 
 dotenv.config();
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
-    // Use bodyparser to get username and password.
     // Find the user in the database and confirm the user is valid.
-
     const userName = req.body.username;
     const password = req.body.password;
 
@@ -26,7 +27,6 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
     if (token == null) return res.sendStatus(401);
 
     const secret = process.env.ACCESS_TOKEN_SECRET as string;
-
     jwt.verify(token, secret, (err, user) => {
         console.log(err);
         if (err) return res.sendStatus(403);

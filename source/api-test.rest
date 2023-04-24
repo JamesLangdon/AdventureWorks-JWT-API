@@ -1,41 +1,44 @@
 ### Login
 # @name login
-GET http://localhost:1337/api/auth/login
+GET http://localhost:1337/api/login
 
 ### Assign the token variable.
 @token = {{login.response.body.token}}
 
 ### Ping
-GET http://localhost:1337/api/person/ping
+GET http://localhost:1337/api/ping
 
-
-### Get Persons
-GET http://localhost:1337/api/person/persons
+### Get 10 Persons.
+GET http://localhost:1337/api/person
 Authorization: Bearer {{token}}
 
-###
+### Get a specific Person.
+GET http://localhost:1337/api/person/20798
 
-GET http://localhost:1337/api/person/persons/1
-###
-
-POST http://localhost:1337/api/person/person
+### Create a person.
+POST http://localhost:1337/api/person
 Content-Type: application/json
+
 {
   "PersonType": "EM",
   "FirstName": "James",
   "MiddleName": "Ed",
   "LastName": "Langdon"
 }
-###
 
-PUT http://localhost:1337/api/person/person/1
+### Update a person.
+PUT http://localhost:1337/api/person/20798
 Content-Type: application/json
-{
-  "MiddleName": "Edward"
-}
-###
 
-DELETE http://localhost:1337/api/person/person/1
-###
+{
+  "PersonType": "EM",
+  "FirstName": "James",
+  "MiddleName": "Edward",
+  "LastName": "Langdon"
+}
+
+### Delete a person
+DELETE http://localhost:1337/api/person/person/20798
+
  
 
