@@ -4,7 +4,6 @@ import { IPerson } from '../interfaces/person';
 import { IPhone } from '../interfaces/phone';
 
 export const JoiValidate = (schema: ObjectSchema) => {
-    let test = 1;
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             await schema.validateAsync(req.body);
