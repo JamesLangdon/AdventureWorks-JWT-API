@@ -9,7 +9,7 @@ const METHOD = 'person controller';
 
 // Initialize the ConnectionPool.
 const pool = new ConnectionPool(config.data);
-pool.connect((err) => {
+pool.connect((err) => {  
     if (err) {
         logging.error(NAMESPACE, `METHOD: ${METHOD}: Error connecting to MSSQL database: ${err}`);
     } else {
