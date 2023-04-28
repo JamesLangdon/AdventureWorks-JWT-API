@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import config from '../config/config';
 import sql, { ConnectionPool, IProcedureResult, Request as SqlRequest } from 'mssql';
 import logging from '../config/logging';
+import { IPerson } from '../interfaces/person';
 
 const NAMESPACE = 'server';
 const METHOD = 'person controller';
@@ -36,15 +37,24 @@ const getAllPersons = async (req: Request, res: Response) => {
 const getPersonById = async (req: Request, res: Response) => {
     try {
         const request = new SqlRequest(pool);
-        const result = await request.input('id', sql.Int, req.params.id).query('SELECT * FROM Person.Person WHERE BusinessEntityId = @id');
+        const result = await request
+            .input('id', sql.Int, req.params.id)
+            .query('SELECT PersonType, FirstName, MiddleName, LastName FROM Person.Person WHERE BusinessEntityId = @id');
         if (result.recordset.length === 0) {
             res.status(404).send('Person not found');
         } else {
-            res.send(result.recordset[0]);
+            // Is the Person from the database what we expect?
+            const person = result.recordset[0] as IPerson;
+            if (person){
+                // Person is valid.
+                res.send(result.recordset[0]);
+            } else {
+                // Person in response was NOT what was expected. 400 - Bad Request.
+                res.status(400).send(`The database response was not a valid person.`);
+            }
         }
     } catch (err) {
-        logging.error(NAMESPACE, `METHOD: [METHOD]: Error getting person: ${err}`);
-        //console.log(`Error getting person: ${err}`);
+        logging.error(NAMESPACE, `METHOD: [METHOD]: Error getting person: ${err}`);        
         res.status(500).send(`Internal server error ' + ${err}`);
     }
 };
