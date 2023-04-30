@@ -22,6 +22,7 @@ const getPhonesById = async (req: Request, res: Response) => {
         if (result.recordset.length === 0) {
             res.status(404).send('Phone not found');
         } else {
+            // Need to sanitize the data coming in from the database.
             res.send(result.recordset[0]);
         }
     } catch (err) {

@@ -27,6 +27,7 @@ const getAllPersons = async (req: Request, res: Response) => {
     try {
         const request = new SqlRequest(pool);
         const result = await request.query('SELECT top 10 * FROM Person.Person');
+        // Need to sanitize the data coming in from the database.
         res.send(result.recordset);
     } catch (err) {
         logging.error(NAMESPACE, `METHOD: ${METHOD}: Error getting persons: ${err}`);
