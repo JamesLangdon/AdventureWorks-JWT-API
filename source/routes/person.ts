@@ -1,7 +1,7 @@
 import express from 'express';
-import controller from '../controllers/person';
-import auth from '../controllers/auth';
-import { JoiValidate, JoiSchemas } from '../middleware/joi';
+import controller from '../controllers/person.js';
+import auth from '../controllers/auth.js';
+import { JoiValidate, JoiSchemas } from '../middleware/joi.js';
 
 const router = express.Router();
 

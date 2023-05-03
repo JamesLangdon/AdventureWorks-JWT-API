@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi, { ObjectSchema } from 'joi';
-import { IPerson } from '../interfaces/person';
-import { IPhone } from '../interfaces/phone';
+import { IPerson } from '../interfaces/person.js';
+import { IPhone } from '../interfaces/phone.js';
 
 export const JoiValidate = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
