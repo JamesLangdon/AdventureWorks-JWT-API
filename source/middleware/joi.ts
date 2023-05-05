@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Joi, { ObjectSchema } from 'joi';
 import { IPerson } from '../interfaces/person.js';
 import { IPhone } from '../interfaces/phone.js';
+import { IUser } from '../interfaces/user.js';
 
 export const JoiValidate = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -15,6 +16,14 @@ export const JoiValidate = (schema: ObjectSchema) => {
 };
 
 export const JoiSchemas = {
+    user: Joi.object<IUser>({
+        UserId: Joi.number(),
+        FirstName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
+        MiddleName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
+        LastName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
+        Active: Joi.boolean()
+    }),
+
     person: Joi.object<IPerson>({
         personType: Joi.string().min(2),
         firstName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
