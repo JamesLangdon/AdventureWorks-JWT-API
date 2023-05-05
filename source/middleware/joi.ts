@@ -18,10 +18,16 @@ export const JoiValidate = (schema: ObjectSchema) => {
 export const JoiSchemas = {
     user: Joi.object<IUser>({
         UserId: Joi.number(),
-        FirstName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
-        MiddleName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
-        LastName: Joi.string().pattern(new RegExp('^[a-zA-Z]{3, 50}$')),
-        Active: Joi.boolean()
+        UserName: Joi.string().alphanum().min(3).max(50).required(),
+        FirstName: Joi.string().alphanum().min(3).max(50).required(),
+        MiddleName: Joi.string().alphanum().min(2).max(50),
+        LastName: Joi.string().alphanum().min(3).max(50).required(),
+        Password: Joi.string().alphanum().min(3).max(50).required(),
+        Active: Joi.boolean().default(true),
+        CreateDate: Joi.date().required(),
+        CreatedBy: Joi.string().alphanum().min(3).max(50).required(),
+        ModifiedDate: Joi.date().required(),
+        ModifiedBy: Joi.string().alphanum().min(3).max(50).required(),
     }),
 
     person: Joi.object<IPerson>({
