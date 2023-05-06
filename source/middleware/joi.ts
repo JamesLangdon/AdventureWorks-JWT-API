@@ -7,7 +7,12 @@ import { IUser } from '../interfaces/user.js';
 export const JoiValidate = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await schema.validateAsync(req.body);
+            const options = {
+                abortEarly: false, // include all errors
+                allowUnknown: true, // ignore unknown props
+                stripUnknown: true // remove unknown props
+            };
+            await schema.validateAsync(req.body, options);
             next();
         } catch (error) {
             return res.status(422).json(error); // Unprocessable Entity.
@@ -19,15 +24,20 @@ export const JoiSchemas = {
     user: Joi.object<IUser>({
         UserId: Joi.number(),
         UserName: Joi.string().alphanum().min(3).max(50).required(),
+        Password: Joi.string().when('UserId', {
+            is: Joi.exist(),
+            then: Joi.allow(null, '', Joi.string().alphanum().min(3).max(50)),
+            otherwise: Joi.string().alphanum().min(3).max(50).required()
+        }),        
         FirstName: Joi.string().alphanum().min(3).max(50).required(),
         MiddleName: Joi.string().alphanum().min(2).max(50),
-        LastName: Joi.string().alphanum().min(3).max(50).required(),
-        Password: Joi.string().alphanum().min(3).max(50).required(),
+        LastName: Joi.string().alphanum().min(3).max(50).required(),        
         Active: Joi.boolean().default(true),
         CreateDate: Joi.date().required(),
         CreatedBy: Joi.string().alphanum().min(3).max(50).required(),
         ModifiedDate: Joi.date().required(),
         ModifiedBy: Joi.string().alphanum().min(3).max(50).required(),
+        Role: Joi.string().valid('Admin', 'User').required()        
     }),
 
     person: Joi.object<IPerson>({

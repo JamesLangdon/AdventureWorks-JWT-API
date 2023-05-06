@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
@@ -6,6 +7,8 @@ import sql, { ConnectionPool, Request as SqlRequest } from 'mssql';
 import logging from '../config/logging.js';
 
 dotenv.config();
+
+const NAMESPACE = 'auth controller';
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
     // Find the user in the database and confirm the user is valid.
@@ -35,4 +38,17 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
     });
 }
 
-export default { authenticate, authenticateToken };
+function encryptPassword(plainTextPassword: string) : string {
+    const saltRounds = 10;
+    bcrypt.hash(plainTextPassword, saltRounds, function(err, hash) {
+        if (err){
+            logging.error(NAMESPACE, `Error - encryptPassword method: ${err}`);
+        }        
+        return hash;
+    });
+
+    // If the hash fails, return an empty string.
+    return '';
+}
+
+export default { authenticate, authenticateToken, encryptPassword };

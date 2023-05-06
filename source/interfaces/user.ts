@@ -10,4 +10,9 @@ export interface IUser {
     CreatedBy: string;
     ModifiedDate: Date;
     ModifiedBy: string;
+    Role: string;
+}
+
+export interface IUserRecordCount{
+    RecordCount: number;
 }
