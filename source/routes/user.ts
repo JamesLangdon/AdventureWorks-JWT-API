@@ -6,9 +6,9 @@ import { JoiValidate, JoiSchemas } from '../middleware/joi.js';
 const router = express.Router();
 
 router.get('/user', auth.authenticateToken, controller.getAll);
-router.get('/user/:id', controller.getById);
-router.post('/user', JoiValidate(JoiSchemas.user), controller.create);
-router.put('/user/:id', JoiValidate(JoiSchemas.user), controller.updateById);
-router.delete('/user/:id', controller.deleteById);
+router.get('/user/:id', auth.authenticateToken, controller.getById);
+router.post('/user', auth.authenticateToken, JoiValidate(JoiSchemas.user), controller.create);
+router.put('/user/:id', auth.authenticateToken, JoiValidate(JoiSchemas.user), controller.updateById);
+router.delete('/user/:id', auth.authenticateToken, controller.deleteById);
 
 export default router;
